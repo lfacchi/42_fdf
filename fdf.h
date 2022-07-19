@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 18:22:24 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/07/16 18:01:25 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/18 21:51:52 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include <stdio.h>
+# include <stdio.h>
 # include "get_next_line.h"
+# include <math.h>
 
 /*
 ** Allowed libraries: math and minilibx, witch is appended in the project's 
