@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 18:22:24 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/07/18 21:51:52 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:43:01 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "get_next_line.h"
+# include "42_libft/get_next_line.h"
 # include <math.h>
 
 /*
@@ -32,13 +32,31 @@
 
 # include <math.h>
 # include "../minilibx-linux/mlx.h"
+# include "42_libft/libft.h"
+/*
+*  Macros utilizadar para calculo 
+*/
+# define COS_45 0.707
+# define SIN_45 0.707
+# define TAN_45 1
+
+
 
 /*
 ** Structs that are usage in project 
 */
+
+typedef struct t_point {
+    int x;
+    int y;
+    int z;
+} t_point;
+
 typedef struct t_square{
-	int	x_init;
-	int	y_init;
+	t_point p1;
+	t_point p2;
+	t_point p3;
+	t_point p4;  
 	int	side;
 }t_square;
 
@@ -56,10 +74,8 @@ typedef struct t_map{
 /*
 **Functions usage for drar on screen
 */
-void create_ver(int x_init, int y_init, int y_final, void *id, void *wnd);
-void create_hor(int x_init, int y_init, int x_final, void *id, void *wnd);
-void t_create_square(t_square sq, void *id, void *wnd);
-void create_matrix(t_square sq,int n_row,int n_col, void *id, void *wnd);
+void basenham(t_session *id, int xi, int yi, int xf, int yf);
+void draw_map(int fd, int space, t_session *id);
 
 
 /*

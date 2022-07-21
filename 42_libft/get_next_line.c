@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucdos-s <lucdos-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:17:01 by  lucdos-s         #+#    #+#             */
-/*   Updated: 2022/06/24 00:09:19 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:23:22 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_next_line(int fd)
 	buffer = ft_cut(aux);
 	if (line != aux)
 		free(aux);
-	if (ft_strlen(line) == 0 && buffer == NULL)
+	if (ft_strlen_new(line) == 0 && buffer == NULL)
 	{
 		free(line);
 		free(buffer);
@@ -34,12 +34,12 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr_new(const char *s, int c)
 {
 	int		i;
 	size_t	len_s;
 
-	len_s = ft_strlen(s);
+	len_s = ft_strlen_new(s);
 	i = 0;
 	if (s == NULL)
 		return (NULL);
@@ -61,11 +61,11 @@ char	*ft_no_line_join(int fd, char *buffer)
 	char	*temp;
 
 	if (!buffer)
-		buffer = ft_strdup("");
+		buffer = ft_strdup_new("");
 	nbytes = 1;
 	aux_buffer = malloc((BUFFER_SIZE + 1));
-	ft_memset(aux_buffer, 0, (BUFFER_SIZE + 1));
-	while (!ft_strchr(aux_buffer, '\n') && nbytes != 0)
+	ft_memset_new(aux_buffer, 0, (BUFFER_SIZE + 1));
+	while (!ft_strchr_new(aux_buffer, '\n') && nbytes != 0)
 	{
 		nbytes = read(fd, aux_buffer, BUFFER_SIZE);
 		if (nbytes < 0)
@@ -76,7 +76,7 @@ char	*ft_no_line_join(int fd, char *buffer)
 		}
 		aux_buffer[nbytes] = '\0';
 		temp = buffer;
-		buffer = ft_strjoin(buffer, aux_buffer);
+		buffer = ft_strjoin_new(buffer, aux_buffer);
 		free(temp);
 	}
 	free(aux_buffer);
@@ -90,12 +90,12 @@ char	*ft_cut(char *buffer)
 
 	if (!buffer)
 		return (NULL);
-	temp = ft_strchr(buffer, '\n');
+	temp = ft_strchr_new(buffer, '\n');
 	if (temp == NULL)
 		return (NULL);
-	nbuffer = malloc(sizeof(char) * (ft_strlen(temp + 1) + 1));
-	nbuffer = ft_memcpy(nbuffer, (temp + 1), ft_strlen(temp + 1));
-	nbuffer[ft_strlen(temp + 1)] = '\0';
+	nbuffer = malloc(sizeof(char) * (ft_strlen_new(temp + 1) + 1));
+	nbuffer = ft_memcpy_new(nbuffer, (temp + 1), ft_strlen_new(temp + 1));
+	nbuffer[ft_strlen_new(temp + 1)] = '\0';
 	if (*buffer == '\0')
 		return (NULL);
 	return (nbuffer);
@@ -107,9 +107,9 @@ char	*ft_join_line(char *line)
 	int		pos;
 
 	pos = 0;
-	temp = ft_strchr(line, '\n');
+	temp = ft_strchr_new(line, '\n');
 	if (temp == NULL)
-		pos = (int)ft_strlen(line);
+		pos = (int)ft_strlen_new(line);
 	else
 	{
 		while (line[pos])
@@ -119,10 +119,10 @@ char	*ft_join_line(char *line)
 			pos++;
 		}
 	}
-	if (ft_strchr(line, '\n'))
+	if (ft_strchr_new(line, '\n'))
 	{
 		temp = (char *)malloc(sizeof(char) * (pos + 2));
-		temp = ft_memcpy(temp, line, (pos + 1));
+		temp = ft_memcpy_new(temp, line, (pos + 1));
 		temp[pos + 1] = '\0';
 		return (temp);
 	}

@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 22:59:56 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/07/15 18:37:04 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/19 01:58:40 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int print_key_value(int key, t_session *id)
 	{
 		mlx_clear_window(id->init, id->window);
 		id->bg.side *= 2;
-		create_matrix(id->bg, 50, 30, id->init,id->window);
 	}
 	if (key == 65362)
 	{	
@@ -35,6 +34,5 @@ int print_key_value(int key, t_session *id)
 		id->bg.side /= 2;
 		nc *= 2;
 		nr *=2;
-		create_matrix(id->bg, nc, nr, id->init,id->window);
 	}
 }

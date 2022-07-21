@@ -6,13 +6,13 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:17:32 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/06/07 16:24:04 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:29:26 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_memset_new(void *s, int c, size_t n)
 {
 	size_t	i;
 
@@ -27,17 +27,17 @@ void	*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_new(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*new_string;
 
 	if (s1 == NULL || *s1 == '\0')
-		return (ft_strdup(s2));
-	new_string = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
+		return (ft_strdup_new(s2));
+	new_string = malloc((ft_strlen_new(s1) + ft_strlen_new(s2)) + 1);
 	i = 0;
-	j = ft_strlen(s1);
+	j = ft_strlen_new(s1);
 	if (new_string == NULL)
 		return (NULL);
 	while (s1[i])
@@ -56,7 +56,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new_string);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen_new(const char *s)
 {
 	size_t	i;
 
@@ -68,13 +68,13 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup_new(const char *s)
 {
 	int		i;
 	char	*strdup;
 	size_t	j;
 
-	j = ft_strlen(s);
+	j = ft_strlen_new(s);
 	if (s == NULL)
 		return (NULL);
 	i = 0;
@@ -90,7 +90,7 @@ char	*ft_strdup(const char *s)
 	return (strdup);
 }
 
-char	*ft_memcpy(void *dest, char *src, size_t n)
+char	*ft_memcpy_new(void *dest, char *src, size_t n)
 {
 	size_t	i;
 

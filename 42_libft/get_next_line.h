@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:17:18 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/06/07 21:06:55 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:30:48 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-char			*ft_strchr(const char *s, int c);
-size_t			ft_strlen(const char *s);
-char			*ft_strjoin(char *s1, char *s2);
-char			*ft_strdup(const char *s);
+char			*ft_strchr_new(const char *s, int c);
+size_t			ft_strlen_new(const char *s);
+char			*ft_strjoin_new(char *s1, char *s2);
+char			*ft_strdup_new(const char *s);
 char			*get_next_line(int fd);
 char			*get_line(char *buffer, int fd);
 char			*ft_cut(char *buffer);
-char			*ft_memcpy(void *dest, char *src, size_t n);
+char			*ft_memcpy_new(void *dest, char *src, size_t n);
 char			*ft_join_line(char *line);
 char			*ft_no_line_join(int fd, char *buffer);
-void			*ft_memset(void *s, int c, size_t n);
+void			*ft_memset_new(void *s, int c, size_t n);
 
 #endif
