@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 15:55:04 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/07/20 20:57:49 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/21 08:13:07 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,8 @@ int	main(void)
 	int row;
 	int col;
 	char *str;
-	t_point p1;
-	p1.x = 150; 
-	p1.y = 150; 
-	p1.z = 0; 
-	t_point p2;
-	p2.x = floor(150 + 500 * 0.7071); 
-	p2.y = 150; 
-	p2.z = 0; 
-	t_point p3;
-	p3.x = floor(150 + 500 * 0.7071); 
-	p3.y = floor(150 + 500 * 0.7071); 
-	p3.z = 0; 
-	t_point p4;
-	p4.x = 150; 
-	p4.y = floor(150 + 500 * 0.7071); 
-	p4.z = 0; 
-	t_point p5;
-	p5.x = p1.x + 500;
-	p5.y =  floor(150 + 500 * 0.7071);
+	t_map map;
+
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, width, height, "EAE GOSTOSAS");
@@ -49,7 +32,7 @@ int	main(void)
 	mlx_key_hook(t_session1.window ,print_key_value , &t_session1);
 
 	int fd = open("test_maps/pylone.fdf", O_RDONLY);
-	draw_map(fd, 10 , &t_session1);
+	draw_map(map, &t_session1);
 	mlx_loop(mlx);
 
 }

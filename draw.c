@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 23:00:03 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/07/20 22:14:24 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/21 08:10:50 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ void basenham(t_session *id, int xi, int yi, int xf, int yf)
 	}
 }
 
-void draw_map(int fd, int space, t_session *id)
+void draw_map(t_map map, t_session *id)
 {
-	int row;
 	int col;
 	int x_init;
 	int y_init;
@@ -58,55 +57,33 @@ void draw_map(int fd, int space, t_session *id)
 	
 	line = "";
 	n_line = 0;
-	y_init = 100;
+	y_init = map.y_init;
 	val = 0;
 	while (line != NULL)
 	{
-		x_init = 300;
+		x_init = map.x_init;
 		col = 0;
-		line = get_next_line(fd);
+		line = get_next_line(map.fd);
 		if (line != NULL)
 			split_line = ft_split(line, ' ');
 		if(line == NULL)
 			val = 1;
 		while (split_line[col])
 		{
-			basenham(id ,x_init ,y_init , (x_init + space) , y_init);
+			basenham(id ,x_init ,y_init , (x_init + map.space) , y_init);
 			if(!val)
-				basenham(id ,x_init ,y_init , x_init , (y_init + space));
-			x_init += space;
+				basenham(id ,x_init ,y_init , x_init , (y_init + map.space));
+			x_init += map.space;
 			col++;
 		}
 		if(!val)
-			basenham(id ,x_init ,y_init , x_init , (y_init + space));
-		y_init += space;
+			basenham(id ,x_init ,y_init , x_init , (y_init + map.space));
+		y_init += map.space;
 		n_line++;
 	}
 }
-int **read_map(int fd, t_session *id)
+void resize_map(int fd, t_session *id)
 {
-	int		n_line;
-	int		col;
-	char	*line;
-	char	**split_line;
-	int		**split_int;
-	int 	***map;
+	mlx_clear_window(id->init, id->window);
 	
-	line = "";
-	while (line != NULL)
-	{
-		line = get_next_line(fd);
-		if (line != NULL)
-			split_line = ft_split(line, ' ');
-		split_int = malloc(sizeof(split_line) * 4);
-		map = malloc(n_line * col * sizeof(int));
-		while (split_line[col])
-		{
-			split_int[col] = split_line[col];
-			col++;
-		}
-		n_line++;
-	}
-	return map;
 }
-

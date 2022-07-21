@@ -6,7 +6,7 @@
 /*   By: lucdos-s < lucdos-s@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 18:22:24 by lucdos-s          #+#    #+#             */
-/*   Updated: 2022/07/20 20:43:01 by lucdos-s         ###   ########.fr       */
+/*   Updated: 2022/07/21 08:11:24 by lucdos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ typedef struct t_point {
     int z;
 } t_point;
 
+typedef struct t_map{
+	int x_init;
+	int y_init;
+	int space;
+	int fd;
+	int max_widht;
+	int max_height;
+} t_map;
+
 typedef struct t_square{
 	t_point p1;
 	t_point p2;
@@ -66,16 +75,11 @@ typedef struct t_session{
     t_square bg;
 }t_session;
 
-
-
-typedef struct t_map{
-    
-} t_map;
 /*
 **Functions usage for drar on screen
 */
 void basenham(t_session *id, int xi, int yi, int xf, int yf);
-void draw_map(int fd, int space, t_session *id);
+void draw_map(t_map map, t_session *id);
 
 
 /*
