@@ -21,18 +21,4 @@ int print_key_value(int key, t_session *id)
 		mlx_destroy_display(id->init);
 		exit(0);
 	}
-	if (key == 65361)
-	{
-		mlx_clear_window(id->init, id->window);
-		id->bg.side *= 2;
-	}
-	if (key == 65362)
-	{	
-		int nr = 50;
-		int nc = 30;
-		mlx_clear_window(id->init, id->window);
-		id->bg.side /= 2;
-		nc *= 2;
-		nr *=2;
-	}
 }

@@ -16,24 +16,22 @@ int	main(void)
 {
 	void	*mlx;
 	void	*mlx_win;
-	int 	width = 1200;
-	int 	height = 600;
-	int row;
-	int col;
-	char *str;
+	char 	*str;
 	t_map map;
+	int **matrix;
 
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, width, height, "EAE GOSTOSAS");
-	t_session t_session1;
-	t_session1.init = mlx;
-	t_session1.window = mlx_win;
-	mlx_key_hook(t_session1.window ,print_key_value , &t_session1);
+	// mlx = mlx_init();
+	// mlx_win = mlx_new_window(mlx, 1200, 600, "AUTOCAD DE CRIA");
+	t_session id;
+	id.init = mlx;
+	id.window = mlx_win;
+	id.map.path = "test_maps/pylone.fdf";
+	mlx_key_hook(id.window ,print_key_value , &id);
 
-	int fd = open("test_maps/pylone.fdf", O_RDONLY);
-	draw_map(map, &t_session1);
-	mlx_loop(mlx);
+	matrix = read_map(&id);
+	print_matrix(matrix);
+	// mlx_loop(mlx);
 
 }
 // x^ = (x1 + y1) * cos()

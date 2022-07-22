@@ -45,45 +45,110 @@ void basenham(t_session *id, int xi, int yi, int xf, int yf)
 	}
 }
 
-void draw_map(t_map map, t_session *id)
+void draw_map(t_session *id)
 {
 	int col;
 	int x_init;
 	int y_init;
-	int  n_line;
+	int  row;
 	char *line;
 	char **split_line;
 	int val;
 	
 	line = "";
-	n_line = 0;
-	y_init = map.y_init;
+	row = 0;
+	y_init = id->map.y_init;
 	val = 0;
 	while (line != NULL)
 	{
-		x_init = map.x_init;
+		x_init = id->map.x_init;
 		col = 0;
-		line = get_next_line(map.fd);
+		line = get_next_line(id->map.fd);
 		if (line != NULL)
 			split_line = ft_split(line, ' ');
 		if(line == NULL)
 			val = 1;
 		while (split_line[col])
 		{
-			basenham(id ,x_init ,y_init , (x_init + map.space) , y_init);
+			basenham(id ,x_init ,y_init , (x_init + id->map.space) , y_init);
 			if(!val)
-				basenham(id ,x_init ,y_init , x_init , (y_init + map.space));
-			x_init += map.space;
+				basenham(id ,x_init ,y_init , x_init , (y_init + id->map.space));
+			x_init += id->map.space;
 			col++;
 		}
 		if(!val)
-			basenham(id ,x_init ,y_init , x_init , (y_init + map.space));
-		y_init += map.space;
-		n_line++;
+			basenham(id ,x_init ,y_init , x_init , (y_init + id->map.space));
+		y_init += id->map.space;
+		row++;
 	}
 }
-void resize_map(int fd, t_session *id)
+
+int **read_map(t_session *id)
 {
-	mlx_clear_window(id->init, id->window);
+	t_rdmap rdmap;
 	
+	rdmap.line = "";
+	rdmap.row = 0;
+	id->map.fd = open(id->map.path, O_RDONLY);
+	while (rdmap.line != NULL)
+	{
+		rdmap.col = 0;
+		rdmap.line = get_next_line(id->map.fd);
+		if (rdmap.line != NULL)
+			rdmap.split_line = ft_split(rdmap.line, ' ');
+		while (rdmap.split_line[rdmap.col])
+			rdmap.col++;
+		rdmap.row++;
+	}
+	close(id->map.fd);
+	rdmap.matrix = matrix_allocate(rdmap.row, rdmap.col);
+	id->map.fd = open(id->map.path, O_RDONLY);
+	rdmap.row = 0;
+	while (rdmap.line != NULL)
+	{
+		rdmap.col = 0;
+		rdmap.line = get_next_line(id->map.fd);
+		if (rdmap.line != NULL)
+		{
+			rdmap.split_line = ft_split(rdmap.line, ' ');
+			while (rdmap.split_line[rdmap.col])
+			{
+				rdmap.matrix[rdmap.row][rdmap.col] = ft_atoi(rdmap.split_line[rdmap.col]);
+				rdmap.col++;
+			}
+			rdmap.row++;
+		}
+	}
+	return (rdmap.matrix);
+}
+
+int **matrix_allocate(int x , int y)
+{
+	int **matrix;
+
+	matrix  = ft_calloc(x, sizeof(int *));
+	while (x > 0)
+	{
+		matrix[x] = ft_calloc(y ,sizeof(int));
+		x--;
+	}
+	return (matrix);
+}
+
+void print_matrix(int **matrix)
+{
+	int i = 0;
+	int j;
+
+	while(matrix[i])
+	{
+		j = 0;
+		while(matrix[i][j])
+		{
+			printf("- %d -",matrix[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }

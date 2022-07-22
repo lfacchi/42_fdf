@@ -39,6 +39,8 @@
 # define COS_45 0.707
 # define SIN_45 0.707
 # define TAN_45 1
+# define WIDHT 1200
+# define HEIGHT 600
 
 
 
@@ -46,45 +48,40 @@
 ** Structs that are usage in project 
 */
 
-typedef struct t_point {
-    int x;
-    int y;
-    int z;
-} t_point;
-
 typedef struct t_map{
 	int x_init;
 	int y_init;
 	int space;
 	int fd;
+	char *path;
 	int max_widht;
 	int max_height;
 } t_map;
 
-typedef struct t_square{
-	t_point p1;
-	t_point p2;
-	t_point p3;
-	t_point p4;  
-	int	side;
-}t_square;
+typedef struct t_rdmap{
+	int col;
+	int  row;
+	char *line;
+	char **split_line;
+	int **matrix;
+} t_rdmap;
+
 
 typedef struct t_session{
 	void *init;
 	void *window;
-    t_square bg;
+    t_map map;
 }t_session;
 
-/*
-**Functions usage for drar on screen
-*/
+/*FUNCTIONS ON DRAW.C */
 void basenham(t_session *id, int xi, int yi, int xf, int yf);
-void draw_map(t_map map, t_session *id);
+void draw_map(t_session *id);
+void print_matrix(int **matrix);
+int **matrix_allocate(int x , int y);
+int **read_map(t_session *id);
 
 
-/*
-**Function usage for map events
-*/
+/*FUNCTIONS ON EVENTS.C */
 int print_key_value(int key, t_session *id);
 
 
