@@ -59,16 +59,11 @@ void draw_map(t_session *id)
 	row = 0;
 	y_init = id->map.y_init;
 	val = 0;
-	while (line != NULL)
+	while (row <= id->rdmap.row)
 	{
 		x_init = id->map.x_init;
 		col = 0;
-		line = get_next_line(id->map.fd);
-		if (line != NULL)
-			split_line = ft_split(line, ' ');
-		if(line == NULL)
-			val = 1;
-		while (split_line[col])
+		while (col < id->rdmap.col)
 		{
 			basenham(id ,x_init ,y_init , (x_init + id->map.space) , y_init);
 			if(!val)
@@ -80,13 +75,16 @@ void draw_map(t_session *id)
 			basenham(id ,x_init ,y_init , x_init , (y_init + id->map.space));
 		y_init += id->map.space;
 		row++;
+		if(row == id->rdmap.row)
+			val = 1;
 	}
 }
 
-int **read_map(t_session *id)
+t_rdmap read_map(t_session *id)
 {
 	t_rdmap rdmap;
-	
+	int i;
+
 	rdmap.line = "";
 	rdmap.row = 0;
 	id->map.fd = open(id->map.path, O_RDONLY);
@@ -94,38 +92,41 @@ int **read_map(t_session *id)
 	{
 		rdmap.col = 0;
 		rdmap.line = get_next_line(id->map.fd);
+		
 		if (rdmap.line != NULL)
 			rdmap.split_line = ft_split(rdmap.line, ' ');
 		while (rdmap.split_line[rdmap.col])
+		{
 			rdmap.col++;
+		}
 		rdmap.row++;
 	}
 	close(id->map.fd);
 	rdmap.matrix = matrix_allocate(rdmap.row, rdmap.col);
 	id->map.fd = open(id->map.path, O_RDONLY);
-	rdmap.row = 0;
-	while (rdmap.line != NULL)
+	rdmap.line = get_next_line(id->map.fd);
+	rdmap.split_line = ft_split(rdmap.line, ' ');
+	while(rdmap.line != NULL)
 	{
-		rdmap.col = 0;
+		i = 0;
+		while (rdmap.split_line[i])
+		{
+			rdmap.matrix[rdmap.row][i] = ft_atoi(rdmap.split_line[i]);
+			i++;
+		}
 		rdmap.line = get_next_line(id->map.fd);
 		if (rdmap.line != NULL)
-		{
 			rdmap.split_line = ft_split(rdmap.line, ' ');
-			while (rdmap.split_line[rdmap.col])
-			{
-				rdmap.matrix[rdmap.row][rdmap.col] = ft_atoi(rdmap.split_line[rdmap.col]);
-				rdmap.col++;
-			}
-			rdmap.row++;
-		}
 	}
-	return (rdmap.matrix);
+	return (rdmap);
 }
 
 int **matrix_allocate(int x , int y)
 {
 	int **matrix;
+	int xi;
 
+	xi = x;
 	matrix  = ft_calloc(x, sizeof(int *));
 	while (x > 0)
 	{
@@ -135,20 +136,3 @@ int **matrix_allocate(int x , int y)
 	return (matrix);
 }
 
-void print_matrix(int **matrix)
-{
-	int i = 0;
-	int j;
-
-	while(matrix[i])
-	{
-		j = 0;
-		while(matrix[i][j])
-		{
-			printf("- %d -",matrix[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}

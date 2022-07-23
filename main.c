@@ -18,24 +18,26 @@ int	main(void)
 	void	*mlx_win;
 	char 	*str;
 	t_map map;
-	int **matrix;
+	t_rdmap save_map;
 
 
-	// mlx = mlx_init();
-	// mlx_win = mlx_new_window(mlx, 1200, 600, "AUTOCAD DE CRIA");
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 1800, 900, "AUTOCAD DE CRIA");
 	t_session id;
 	id.init = mlx;
 	id.window = mlx_win;
-	id.map.path = "test_maps/pylone.fdf";
-	mlx_key_hook(id.window ,print_key_value , &id);
+	id.map.x_init = 10;
+	id.map.y_init = 10;
+	id.map.space = 10;
+	id.map.path = "test_maps/42.fdf";
 
-	matrix = read_map(&id);
-	print_matrix(matrix);
-	// mlx_loop(mlx);
+	mlx_key_hook(id.window ,key_value , &id);
+
+	save_map = read_map(&id);
+	id.rdmap = save_map;
+	printf("matrix  %d x %d -", id.rdmap.row , id.rdmap.col);
+	draw_map(&id);
+	mlx_loop(mlx);
 
 }
-// x^ = (x1 + y1) * cos()
-// y^ = (x1 + y1) * sin() - z
 
-// x2^ = (x2 + x1) * cos()
-// y2^ = (x2 + y2) * sin() - z

@@ -71,6 +71,7 @@ typedef struct t_session{
 	void *init;
 	void *window;
     t_map map;
+	t_rdmap rdmap;
 }t_session;
 
 /*FUNCTIONS ON DRAW.C */
@@ -78,12 +79,11 @@ void basenham(t_session *id, int xi, int yi, int xf, int yf);
 void draw_map(t_session *id);
 void print_matrix(int **matrix);
 int **matrix_allocate(int x , int y);
-int **read_map(t_session *id);
+t_rdmap read_map(t_session *id);
 
 
 /*FUNCTIONS ON EVENTS.C */
-int print_key_value(int key, t_session *id);
-
+int key_value(int key, t_session *id);
 
 
 #endif

@@ -11,5 +11,6 @@
 # **************************************************************************** #
 
 all: 
+	@clear
 	@gcc main.c draw.c events.c -Iminilibx-linux/ -Lminilibx-linux/ -lmlx -lXext -lX11 -lm 42_libft/libft.a
 	@./a.out

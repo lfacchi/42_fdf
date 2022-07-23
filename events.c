@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-int print_key_value(int key, t_session *id)
+int key_value(int key, t_session *id)
 {
 	printf("%d\n", key);
 	if (key == 65307)
@@ -20,5 +20,17 @@ int print_key_value(int key, t_session *id)
 		mlx_destroy_window(id->init, id->window);
 		mlx_destroy_display(id->init);
 		exit(0);
+	}
+	if (key ==  65362)
+	{
+		mlx_clear_window(id->init, id->window);
+		id->map.space += 5;
+		draw_map(id);
+	}
+	if (key ==  65364)
+	{
+		mlx_clear_window(id->init, id->window);
+		id->map.space -= 5;
+		draw_map(id);
 	}
 }
